@@ -1,7 +1,7 @@
 "use client";
 
+import { ZellijTheme } from "@/lib/types";
 import { rgbToHex } from "@/lib/kdl";
-import type { ZellijTheme } from "@/lib/types";
 
 interface TerminalPreviewProps {
   theme: ZellijTheme;
@@ -31,160 +31,274 @@ export default function TerminalPreview({ theme }: TerminalPreviewProps) {
   };
 
   return (
-    <div className="h-full rounded-lg border border-gray-700 bg-gray-800 p-4">
+    <div className="h-full rounded-lg border-2 border-gray-700 bg-gray-900 p-4">
       <h3 className="mb-4 text-sm font-medium text-gray-300">
         Terminal Preview
       </h3>
 
-      {/* Mock Terminal Window */}
+      {/* Main Terminal Window */}
       <div
-        className="rounded border-2"
+        className="h-full flex flex-col rounded border"
         style={{
           borderColor: rgbToHex(theme.components.frame_selected.base),
           backgroundColor: rgbToHex(theme.components.frame_selected.background),
         }}
       >
-        {/* Tabs */}
-        <div
-          className="flex border-b-2"
-          style={{
-            borderColor: rgbToHex(theme.components.ribbon_unselected.base),
-          }}
-        >
+        {/* Tab Bar */}
+        <div className="flex border-b-2">
           <div
-            className="px-4 py-2 text-sm font-medium"
-            style={getComponentStyle("ribbon_selected")}
+            className="flex-1 border-r px-3 py-1 text-sm"
+            style={{
+              borderColor: rgbToHex(theme.components.frame_unselected.base),
+              ...getComponentStyle("ribbon_selected"),
+            }}
           >
-            Tab 1
+            <span className="mr-2">▪</span>
+            main.go
           </div>
           <div
-            className="px-4 py-2 text-sm"
-            style={getComponentStyle("ribbon_unselected")}
+            className="flex-1 border-r px-3 py-1 text-sm"
+            style={{
+              borderColor: rgbToHex(theme.components.frame_unselected.base),
+              ...getComponentStyle("ribbon_unselected"),
+            }}
           >
-            Tab 2
+            <span className="mr-2">▪</span>
+            README.md
           </div>
           <div
-            className="px-4 py-2 text-sm"
-            style={getComponentStyle("ribbon_unselected")}
+            className="flex-1 px-3 py-1 text-sm"
+            style={{
+              ...getComponentStyle("ribbon_unselected"),
+            }}
           >
-            Tab 3
+            <span className="mr-2">▪</span>
+            config.kdl
           </div>
         </div>
 
-        {/* Content */}
-        <div className="p-4">
-          {/* Table Example */}
-          <div className="mb-4">
-            <div
-              className="mb-2 border-b pb-1 text-sm font-medium"
-              style={getComponentStyle("table_title")}
-            >
-              Table Header
-            </div>
-            <div className="space-y-1">
+        {/* Panes Container */}
+        <div className="flex flex-1 overflow-hidden">
+          {/* Left Pane - File Tree */}
+          <div
+            className="w-64 border-r overflow-hidden"
+            style={{
+              borderColor: rgbToHex(theme.components.frame_unselected.base),
+              backgroundColor: rgbToHex(
+                theme.components.frame_unselected.background
+              ),
+            }}
+          >
+            <div className="p-2">
               <div
-                className="rounded px-2 py-1 text-sm"
-                style={getComponentStyle("table_cell_selected")}
+                className="mb-2 border-b pb-1 text-xs font-medium"
+                style={getComponentStyle("table_title")}
               >
-                Selected Row
+                src/
               </div>
-              <div
-                className="rounded px-2 py-1 text-sm"
-                style={getComponentStyle("table_cell_unselected")}
-              >
-                Unselected Row
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 px-2 py-1 text-xs">
+                  <span
+                    style={{ color: getEmphasisColor("list_unselected", 0) }}
+                  >
+                    📁
+                  </span>
+                  <span style={getComponentStyle("list_unselected")}>
+                    components/
+                  </span>
+                </div>
+                <div className="ml-4 flex items-center gap-2 px-2 py-1 text-xs">
+                  <span
+                    style={{ color: getEmphasisColor("list_unselected", 1) }}
+                  >
+                    📄
+                  </span>
+                  <span style={getComponentStyle("list_unselected")}>
+                    Button.tsx
+                  </span>
+                </div>
+                <div className="ml-4 flex items-center gap-2 px-2 py-1 text-xs">
+                  <span style={{ color: getEmphasisColor("list_selected", 2) }}>
+                    📄
+                  </span>
+                  <span
+                    className="rounded px-1"
+                    style={getComponentStyle("list_selected")}
+                  >
+                    ThemeMaker.tsx
+                  </span>
+                </div>
+                <div className="ml-4 flex items-center gap-2 px-2 py-1 text-xs">
+                  <span
+                    style={{ color: getEmphasisColor("list_unselected", 3) }}
+                  >
+                    📄
+                  </span>
+                  <span style={getComponentStyle("list_unselected")}>
+                    types.ts
+                  </span>
+                </div>
               </div>
-            </div>
-          </div>
-
-          {/* List Example */}
-          <div className="mb-4">
-            <div className="mb-2 text-xs text-gray-400">List:</div>
-            <div className="space-y-1">
-              <div
-                className="rounded px-2 py-1 text-sm"
-                style={getComponentStyle("list_selected")}
-              >
-                Selected item
-              </div>
-              <div
-                className="rounded px-2 py-1 text-sm"
-                style={getComponentStyle("list_unselected")}
-              >
-                Unselected item
-              </div>
-              <div
-                className="rounded px-2 py-1 text-sm"
-                style={getComponentStyle("list_unselected")}
-              >
-                Another item
-              </div>
-            </div>
-          </div>
-
-          {/* Exit Codes */}
-          <div className="flex gap-4">
-            <div
-              className="rounded px-2 py-1 text-xs"
-              style={getComponentStyle("exit_code_success")}
-            >
-              ✓ Success
-            </div>
-            <div
-              className="rounded px-2 py-1 text-xs"
-              style={getComponentStyle("exit_code_error")}
-            >
-              ✗ Error
             </div>
           </div>
 
-          {/* Text with emphasis */}
-          <div className="mt-4 text-xs">
-            <span style={getComponentStyle("text_unselected")}>
-              Normal text with{" "}
-              <span style={{ color: getEmphasisColor("text_unselected", 0) }}>
-                emphasis 0
-              </span>
-              {", "}
-              <span style={{ color: getEmphasisColor("text_unselected", 1) }}>
-                emphasis 1
-              </span>
-              {", "}
-              <span style={{ color: getEmphasisColor("text_unselected", 2) }}>
-                emphasis 2
-              </span>
-            </span>
+          {/* Right Pane - Code Editor */}
+          <div className="flex-1 overflow-hidden">
+            {/* Editor Tabs */}
+            <div
+              className="flex border-b"
+              style={{
+                borderColor: rgbToHex(theme.components.frame_unselected.base),
+              }}
+            >
+              <div
+                className="px-3 py-1 text-xs"
+                style={getComponentStyle("ribbon_selected")}
+              >
+                ThemeMaker.tsx
+              </div>
+              <div
+                className="px-3 py-1 text-xs"
+                style={getComponentStyle("ribbon_unselected")}
+              >
+                types.ts
+              </div>
+            </div>
+
+            {/* Code Content */}
+            <div
+              className="h-full overflow-auto p-4 text-xs font-mono"
+              style={{
+                backgroundColor: rgbToHex(
+                  theme.components.frame_selected.background
+                ),
+              }}
+            >
+              <div className="space-y-1">
+                <div>
+                  <span
+                    style={{ color: getEmphasisColor("text_unselected", 0) }}
+                  >
+                    import
+                  </span>{" "}
+                  <span style={getComponentStyle("text_unselected")}>
+                    {"{ useState }"}
+                  </span>
+                  <span
+                    style={{ color: getEmphasisColor("text_unselected", 1) }}
+                  >
+                    {" "}
+                  </span>
+                  <span
+                    style={{ color: getEmphasisColor("text_unselected", 2) }}
+                  >
+                    from
+                  </span>{" "}
+                  <span style={getComponentStyle("text_unselected")}>
+                    "react"
+                  </span>
+                  ;
+                </div>
+                <div>
+                  <span
+                    style={{ color: getEmphasisColor("text_unselected", 1) }}
+                  >
+                    import
+                  </span>{" "}
+                  <span style={getComponentStyle("text_unselected")}>
+                    {"{ ZellijTheme }"}
+                  </span>
+                  <span
+                    style={{ color: getEmphasisColor("text_unselected", 2) }}
+                  >
+                    {" "}
+                  </span>
+                  <span
+                    style={{ color: getEmphasisColor("text_unselected", 3) }}
+                  >
+                    from
+                  </span>{" "}
+                  <span style={getComponentStyle("text_unselected")}>
+                    "@/lib/types"
+                  </span>
+                  ;
+                </div>
+                <div className="mt-2">
+                  <span style={getComponentStyle("text_selected")}>
+                    export default function
+                  </span>{" "}
+                  <span style={getComponentStyle("text_selected")}>
+                    ThemeMaker()
+                  </span>
+                  {" {"}
+                  {"}"}
+                </div>
+                <div className="ml-4">
+                  <span style={getComponentStyle("text_selected")}>const</span>{" "}
+                  <span style={getComponentStyle("text_unselected")}>
+                    [theme, setTheme]
+                  </span>
+                  <span
+                    style={{ color: getEmphasisColor("text_unselected", 0) }}
+                  >
+                    {" "}
+                  </span>
+                  <span style={getComponentStyle("text_unselected")}>=</span>{" "}
+                  <span style={getComponentStyle("text_unselected")}>
+                    useState
+                  </span>
+                  &lt;
+                  <span style={getComponentStyle("text_unselected")}>
+                    ZellijTheme
+                  </span>
+                  &gt; (DEFAULT_THEME);
+                </div>
+                <div className="ml-4">
+                  <span style={getComponentStyle("text_unselected")}>
+                    {"// TODO: implement theme editor"}
+                  </span>
+                </div>
+              </div>
+
+              {/* Status indicators at bottom */}
+              <div className="mt-4 flex gap-2">
+                <div
+                  className="rounded px-2 py-1 text-xs"
+                  style={getComponentStyle("exit_code_success")}
+                >
+                  ✓ Build successful
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Status Bar */}
+        {/* Command Line */}
         <div
-          className="flex justify-between border-t px-4 py-1 text-xs"
+          className="border-t px-4 py-2 text-xs font-mono"
           style={{
             borderColor: rgbToHex(theme.components.frame_unselected.base),
             ...getComponentStyle("ribbon_unselected"),
           }}
         >
-          <span>Ctrl+P</span>
-          <span>mode: Tab</span>
+          <span className="text-gray-400">~/projects/zellij-theme-maker $</span>
+          <span className="ml-2">npm run dev</span>
         </div>
       </div>
 
-      {/* Color Palette */}
-      <div className="mt-6">
+      {/* Color Palette Preview */}
+      <div className="mt-4">
         <h4 className="mb-2 text-xs font-medium text-gray-400">
           Color Palette
         </h4>
-        <div className="grid grid-cols-7 gap-2">
+        <div className="grid grid-cols-8 gap-2">
           {Object.entries(theme.components)
-            .slice(0, 7)
+            .slice(0, 8)
             .map(([name, component]) => (
               <div key={name} className="text-center">
                 <div
-                  className="mb-1 h-8 w-full rounded border border-gray-600"
-                  style={{
-                    backgroundColor: rgbToHex(component.base),
-                  }}
+                  className="mb-1 h-6 w-full rounded border border-gray-600"
+                  style={{ backgroundColor: rgbToHex(component.base) }}
                 />
                 <div className="text-xs text-gray-400">{name}</div>
               </div>
