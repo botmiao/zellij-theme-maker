@@ -38,19 +38,18 @@ npm start
 
 ```
 ├── app/
-│   ├── page.tsx          # 主页面
+│   ├── page.tsx          # 主页面（单体实现）
 │   ├── layout.tsx        # 布局
 │   └── globals.css       # 全局样式
-├── components/
-│   ├── TabButton.tsx     # 标签按钮
-│   ├── ComponentEditor.tsx  # 组件编辑器
-│   ├── KDLViewer.tsx     # KDL 代码查看器
-│   └── TerminalPreview.tsx  # 终端预览
-├── lib/
-│   ├── types.ts          # 类型定义
-│   └── kdl.ts            # KDL 生成工具
 └── package.json
 ```
+
+## 预设主题
+
+- **Synthwave 84** - 霓虹复古风格
+- **Dracula** - 紫色调暗色主题
+- **Nord** - 蓝灰色冷色调主题
+- **Catppuccin** - 粉紫色调柔和主题
 
 ## Zellij 主题格式
 
