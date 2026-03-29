@@ -1,59 +1,53 @@
 # Zellij Theme Maker
 
-一个在线的 Zellij 主题编辑器，可以实时调整颜色并导出 KDL 格式的主题文件。
+[中文文档](./README_zh.md)
 
-## 功能
+A web-based theme editor for [Zellij](https://zellij.dev) with live preview, interactive color picker, and KDL export.
 
-- 🎨 实时颜色编辑器
-- 👁️ 终端预览
-- 📝 KDL 代码导出
-- 📋 复制到剪贴板
-- 📥 导入/导出 KDL 文件
+![Screenshot](./screenshot/1.png)
 
-## 开发
+## Features
+
+- Live color editing with visual color picker
+- Real-time terminal preview
+- Export to KDL format (copy to clipboard or download)
+- Import existing KDL theme files
+- Built-in preset themes (Synthwave 84, Dracula, Nord, Catppuccin)
+
+## Getting Started
 
 ```bash
 npm install
 npm run dev
 ```
 
-访问 http://localhost:3000 查看应用。
+Visit http://localhost:3000 to see the app.
 
-## 构建
+## Build
 
 ```bash
 npm run build
 npm start
 ```
 
-## 技术栈
+## Tech Stack
 
-- Next.js 15
-- React 18
+- Next.js 16
+- React 19
 - TypeScript
-- Tailwind CSS
-- react-colorful (颜色选择器)
+- Tailwind CSS v4
+- react-colorful
 
-## 项目结构
+## Preset Themes
 
-```
-├── app/
-│   ├── page.tsx          # 主页面（单体实现）
-│   ├── layout.tsx        # 布局
-│   └── globals.css       # 全局样式
-└── package.json
-```
+- **Synthwave 84** - Neon retro style
+- **Dracula** - Purple-toned dark theme
+- **Nord** - Blue-gray cool-toned theme
+- **Catppuccin** - Pastel soft-toned theme
 
-## 预设主题
+## Zellij Theme Format
 
-- **Synthwave 84** - 霓虹复古风格
-- **Dracula** - 紫色调暗色主题
-- **Nord** - 蓝灰色冷色调主题
-- **Catppuccin** - 粉紫色调柔和主题
-
-## Zellij 主题格式
-
-Zellij 主题使用 KDL 格式，包含以下 UI 组件：
+Zellij themes use KDL format with the following UI components:
 
 - text_unselected / text_selected
 - ribbon_unselected / ribbon_selected
@@ -62,7 +56,7 @@ Zellij 主题使用 KDL 格式，包含以下 UI 组件：
 - frame_unselected / frame_selected / frame_highlight
 - exit_code_success / exit_code_error
 
-每个组件有 5 个颜色属性：
+Each component has 5 color attributes:
 - base
 - background
 - emphasis_0 / emphasis_1 / emphasis_2 / emphasis_3
